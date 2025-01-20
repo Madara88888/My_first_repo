@@ -17,7 +17,7 @@ while True:
         if event.type == pygame.QUIT:
             exit()
     player.movement()
-    screen.fill(BLACK)
+    screen.fill((0, 0, 0))
 
     drawing.background()
     drawing.world(player.pos, player.angle)
@@ -37,8 +37,9 @@ while True:
     #         b -= 2
     #         if b <= 100:
     #             count = 1
+    
     pygame.display.flip()
-    clock.tick(FPS)
+    clock.tick(fps)
     pygame.display.set_caption(str(round(((pygame.time.get_ticks()) / 1000), 1)) + " секунд" + f"  {round(clock.get_fps(), 2)} FPS")
 
         
