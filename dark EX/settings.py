@@ -4,8 +4,14 @@ WIDTH = 1200
 HEIGHT = 800
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
-fps = 90
-cell_size = 100
+FPS = 90
+CELL = 100
+
+# texture settings
+TEXTURE_WIDTH = 1200
+TEXTURE_HEIGHT = 1200
+TEXTURE_SCALE = TEXTURE_WIDTH // CELL
+
 
 # ray casting settings
 FOV = math.pi / 3
@@ -14,7 +20,7 @@ NUM_RAYS = 300
 MAX_DEPTH = HEIGHT
 DELTA_ANGLE = FOV / NUM_RAYS
 DIST = 2.6 * NUM_RAYS / (2 * math.tan(HALF_FOV))
-PROJ_COEFF = DIST * cell_size
+PROJ_COEFF = DIST * CELL
 SCALE = WIDTH // NUM_RAYS
 
 # player settings
