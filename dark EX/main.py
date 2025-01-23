@@ -2,7 +2,7 @@ import pygame
 from settings import *
 from player import Player
 import math
-from map import world_map
+from map import world_map, collision_walls
 from ray_casting import ray_casting
 from drawing import Drawing
 
@@ -22,24 +22,12 @@ while True:
     drawing.background()
     drawing.world(player.pos, player.angle)
 
+    # pygame.draw.circle(screen, GREEN, (int(player.x), int(player.y)), 12) 
+    # for x,y in world_map:
+    #     pygame.draw.rect(screen, (255, 0, 0), (x, y, CELL, CELL), 2)
 
-
-    # if (pygame.time.get_ticks()) % 1000 <= 10:
-    #     if count == 1:
-    #         r += 1
-    #         g += 1
-    #         b += 2
-    #         if b >= 250:
-    #             count = 0
-    #     elif count == 0:
-    #         r -= 1
-    #         g -= 1
-    #         b -= 2
-    #         if b <= 100:
-    #             count = 1
-    
     pygame.display.flip()
-    clock.tick(fps)
+    clock.tick(FPS)
     pygame.display.set_caption(str(round(((pygame.time.get_ticks()) / 1000), 1)) + " секунд" + f"  {round(clock.get_fps(), 2)} FPS")
 
         

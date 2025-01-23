@@ -1,32 +1,73 @@
 from settings import *
 import pygame
 import math
+from map import collision_walls
+from LvL import *
 
 class Player:
     def __init__(self):
         self.x, self.y = player_pos
         self.angle = player_angle
-
+        self.side = 50
+        self.rect = pygame.Rect(*player_pos, self.side, self.side)
+    
     @property
     def pos(self):
         return (self.x, self.y)
 
+    def collision(self, pos_x,  pos_y):
+        next_rect = self.rect.copy()
+        next_rect.move_ip( pos_x,  pos_y)
+        hit_indexes = next_rect.collidelistall(collision_walls)
+
+        if len(hit_indexes):
+            delta_x, delta_y = 0, 0
+            for hit_index in hit_indexes:
+                hit_rect = collision_walls[hit_index]
+                if pos_x > 0:
+                    delta_x += next_rect.right - hit_rect.left
+                else:
+                    delta_x += hit_rect.right - next_rect.left
+                if pos_y > 0:
+                    delta_y += next_rect.bottom - hit_rect.top
+                else:
+                    delta_y += hit_rect.bottom - next_rect.top
+
+            if abs(delta_x - delta_y) < 10:
+                pos_x, pos_y = 0, 0
+            elif delta_x > delta_y:
+                pos_y = 0
+            elif delta_y > delta_x:
+                pos_x = 0
+        self.x += pos_x
+        self.y += pos_y
+
     def movement(self):
+        self.rect.center = self.x, self.y
+
         sin_a = math.sin(self.angle)
         cos_a = math.cos(self.angle)
+        self.player_speed_cos = player_speed * cos_a
+        self.player_speed_sin = player_speed * sin_a
+
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
-            self.x += player_speed * cos_a
-            self.y += player_speed * sin_a
+            pos_x = self.player_speed_cos
+            pos_y = self.player_speed_sin
+            self.collision(pos_x, pos_y)
         if keys[pygame.K_s]:
-            self.x += -player_speed * cos_a
-            self.y += -player_speed * sin_a
+            pos_x = -self.player_speed_cos
+            pos_y = -self.player_speed_sin
+            self.collision(pos_x, pos_y)
         if keys[pygame.K_a]:
-            self.x += player_speed * sin_a
-            self.y += -player_speed * cos_a
+            pos_x = self.player_speed_sin
+            pos_y = -self.player_speed_cos
+            self.collision(pos_x, pos_y)
         if keys[pygame.K_d]:
-            self.x += -player_speed * sin_a
-            self.y += player_speed * cos_a
+            pos_x = -self.player_speed_sin
+            pos_y = self.player_speed_cos
+            self.collision(pos_x, pos_y)
+
         if keys[pygame.K_LEFT]:
             self.angle -= 0.02
         if keys[pygame.K_RIGHT]:
