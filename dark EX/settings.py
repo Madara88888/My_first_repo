@@ -7,7 +7,8 @@ HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 FPS = 90
 CELL = 100
-size_lvl = 40
+QUANTITY_LVLS = 4
+size_lvl = 10
 
 # texture settings
 TEXTURE_WIDTH = 1200
