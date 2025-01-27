@@ -1,8 +1,6 @@
 import pygame
 from settings import *
 from player import Player
-from map import world_map, collision_walls
-from ray_casting import ray_casting
 from drawing import Drawing
 
 pygame.init()

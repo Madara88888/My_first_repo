@@ -1,4 +1,3 @@
-import pygame
 from settings import *
 from generator import *
 
@@ -22,4 +21,4 @@ def load_lvl(number) -> Lvl:
 
     return player_pos, lvl
 
-player_pos, lvl = load_lvl(1)
+
