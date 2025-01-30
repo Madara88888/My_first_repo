@@ -1,8 +1,9 @@
 import pygame
 from settings import *
-from map import world_map
+from player import Map
 
-
+map = Map()
+world_map = map.world__map()[0]
 
 def mapping(a, b):
     return (a // CELL) * CELL, (b // CELL) * CELL
