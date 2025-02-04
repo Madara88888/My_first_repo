@@ -14,14 +14,10 @@ def load_lvl(number) -> Lvl:
                 if symbol == "#":
                     lvl[y][x] = "#"
                 if symbol == "&":
-                    end = (x, y)
-                else:
-                    end = (size_lvl - 1, size_lvl - 1)
+                    lvl[y][x] = "&"
                 if symbol == "@":
                     player_pos = (x * CELL + CELL // 2, y * CELL + CELL // 2)
-                else:
-                    player_pos = (1 * CELL + CELL // 2, 1 * CELL + CELL // 2)
 
-    return player_pos, lvl, end
+    return player_pos, lvl
 
 
