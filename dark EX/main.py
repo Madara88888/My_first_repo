@@ -18,7 +18,7 @@ while True:
         if event.type == pygame.QUIT:
             exit()
 
-    player.keys_control()
+
     player.movement()
     screen.fill((0, 0, 0))
 

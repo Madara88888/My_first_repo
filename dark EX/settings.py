@@ -31,12 +31,6 @@ SCALE = WIDTH // NUM_RAYS
 # player settings
 RAD = 12
 player_angle = 0
-player_speed = 2.2
+player_speed = 3.3
 
-# colors
-WHITE = (255, 255, 255)
-RED = (220, 0, 0)
-GREEN = (0, 220, 0)
-BLUE = (0, 0, 255)
-PURPLE = (120, 0, 120)
 

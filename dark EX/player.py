@@ -13,6 +13,7 @@ class Player:
         self.side = 50
         self.sensitivity = 0.004
         self.rect = pygame.Rect(*self.player_pos, self.side, self.side)
+        self.num_lvl = 1
     
     @property
     def pos(self):
@@ -20,9 +21,9 @@ class Player:
 
     def collision(self, pos_x,  pos_y):
         next_rect = self.rect.copy()
-        next_rect.move_ip( pos_x,  pos_y)
+        next_rect.move_ip(pos_x,  pos_y)
         hit_indexes = next_rect.collidelistall(self.collision_walls)
-
+        
         if len(hit_indexes):
             delta_x, delta_y = 0, 0
             for hit_index in hit_indexes:
@@ -42,17 +43,30 @@ class Player:
                 pos_y = 0
             elif delta_y > delta_x:
                 pos_x = 0
-        print(pos_x, pos_y)
+
         self.x += pos_x
         self.y += pos_y
 
+        collide_portal = next_rect.colliderect(self.end)
+
+        if collide_portal:
+            map = Map()
+            self.num_lvl += 1
+            map.__init__(self.num_lvl)
+            self.player_pos = map.world__map()[1]
+            self.collision_walls = map.world__map()[2]
+            self.x, self.y = self.player_pos
+            self.rect = pygame.Rect(*self.player_pos, self.side, self.side)
+            
+
     def movement(self):
         self.mouse_control()
+        self.keys_control()
         self.rect.center = self.x, self.y
         self.angle = self.angle % (PI * 2)
 
     def keys_control(self):
-        map = Map()
+        
         sin_a = math.sin(self.angle)
         cos_a = math.cos(self.angle)
         self.player_speed_cos = player_speed * cos_a
@@ -77,14 +91,7 @@ class Player:
             pos_x = -self.player_speed_sin
             pos_y = self.player_speed_cos
             self.collision(pos_x, pos_y)
-        if keys[pygame.K_LSHIFT]:
-            num_lvl = 2
-            map.__init__(num_lvl)
-            self.player_pos = map.world__map()[1]
-            self.collision_walls = map.world__map()[2]
-            self.x, self.y = self.player_pos
-            self.rect = pygame.Rect(*self.player_pos, self.side, self.side)
-            return map.world__map()
+            
         
         if keys[pygame.K_LEFT]:
             self.angle -= 0.02
@@ -101,16 +108,19 @@ class Player:
 
 class Map:
     def __init__(self, num_lvl=1):
-        self.player_pos, lvl, end = load_lvl(num_lvl)
-        self.world_map = set()
+        self.player_pos, lvl = load_lvl(num_lvl)
+        self.world_map = {}
         self.collision_walls = []
-        self.end = end
         text_map = lvl
         for j, row in enumerate(text_map):
             for i, char in enumerate(row):
-                if char == '#':
-                    self.collision_walls.append(pygame.Rect(i * CELL, j * CELL, CELL, CELL))
-                    self.world_map.add((i * CELL, j * CELL))
+                if char != '.':
+                    if char == "#":
+                        self.collision_walls.append(pygame.Rect(i * CELL, j * CELL, CELL, CELL))
+                        self.world_map[(i * CELL, j * CELL)] = "#"
+                    if char == "&":
+                        self.end = pygame.Rect(i * CELL, j * CELL, CELL, CELL)
+                        self.world_map[(i * CELL, j * CELL)] = "&"
     
     def world__map(self):
         print(self.world_map)
