@@ -6,8 +6,7 @@ from ray_casting import ray_casting
 class Drawing:
     def __init__(self, screen):
         self.screen = screen
-        self.texture = pygame.image.load("img/1.png").convert()
-        self.texture2 = pygame.image.load("img/overlay.png").convert()
+        self.texture = {"#": pygame.image.load("img/1.png").convert(), "&": pygame.image.load("img/2.png").convert()}
         self.overlay = pygame.image.load("img/overlay.png").convert()
         self.r, self.g, self.b = 10, 10, 100
         self.count = 1
@@ -30,5 +29,5 @@ class Drawing:
                 if self.b <= 100:
                     self.count = 1
 
-    def world(self, player_pos, player_angle):
-        ray_casting(self.screen, player_pos, player_angle, self.texture, self.overlay)
+    def world(self, player_pos, player_angle, num_lvl):
+        ray_casting(self.screen, player_pos, player_angle, self.texture, self.overlay, num_lvl)

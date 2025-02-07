@@ -18,12 +18,12 @@ while True:
         if event.type == pygame.QUIT:
             exit()
 
-    player.keys_control()
+    
     player.movement()
     screen.fill((0, 0, 0))
 
     drawing.background()
-    drawing.world(player.pos, player.angle)
+    drawing.world(player.pos, player.angle, player.num_lvls())
 
     
     pygame.display.flip()
