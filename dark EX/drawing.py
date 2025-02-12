@@ -29,5 +29,16 @@ class Drawing:
                 if self.b <= 100:
                     self.count = 1
 
+    def END(self):
+        Time = str(round(((pygame.time.get_ticks()) / 1000), 1))
+        pygame.draw.rect(self.screen, (0,0,0), (0, 0, WIDTH, HEIGHT))
+        f1 = pygame.font.Font(None, 36)
+        text1 = f1.render('THE END', 5, (180, 0, 0))
+        self.screen.blit(text1, (HALF_WIDTH - 20, HALF_HEIGHT - 10))
+        # text2 = f1.render(f'{Time}', 5, (180, 0, 0))
+        # self.screen.blit(text2, (HALF_WIDTH, HALF_HEIGHT))
+    
+        return Time
+
     def world(self, player_pos, player_angle, num_lvl):
         ray_casting(self.screen, player_pos, player_angle, self.texture, self.overlay, num_lvl)

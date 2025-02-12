@@ -4,7 +4,7 @@ from generator import *
 class Lvl:
     pass
 
-def load_lvl(number) -> Lvl:
+def load_lvl(number) -> Lvl:  
     lvlname = f"lvl/{number}.txt"
     lvl = [["." for k in range(size_lvl + 1)] for i in range(size_lvl + 1)]
     with open(lvlname) as file:
@@ -20,5 +20,4 @@ def load_lvl(number) -> Lvl:
                     player_pos = (x * CELL + CELL // 2, y * CELL + CELL // 2)
 
     return player_pos, lvl
-
 
