@@ -8,7 +8,6 @@ def mapping(a, b):
 
 
 def ray_casting(screen, player_pos, player_angle, textures, overlay, lvl):
-    print(lvl)
     world_map = Map(lvl).world__map()[0]
     
     ox, oy = player_pos
