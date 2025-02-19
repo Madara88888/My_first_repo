@@ -48,14 +48,13 @@ class Player:
                 pos_x = 0
 
         collide_portal = next_rect.colliderect(self.end[0])
-        print(collide_portal)
+        
         if collide_portal:
             self.num_lvl += 1
             map = Map(self.num_lvl)
             self.player_pos = map.world__map()[1]
             self.collision_walls = map.world__map()[2]
             self.end = map.world__map()[3]
-            print(self.end)
             self.x, self.y = self.player_pos[:]
             self.rect = pygame.Rect(*self.player_pos, self.side, self.side)
         

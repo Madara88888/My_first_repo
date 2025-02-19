@@ -13,7 +13,7 @@ drawing = Drawing(screen)
 pygame.mouse.set_visible(False)
 
 scene = 0
-
+t = 0
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -27,6 +27,9 @@ while True:
         drawing.world(player.pos, player.angle, player.num_lvls())
     if scene == QUANTITY_LVLS - 1:
         drawing.END()
+        if t == 0:
+            print(drawing.END())
+            t = 1
     pygame.display.flip()
     clock.tick(FPS)
     Time = drawing.END()
